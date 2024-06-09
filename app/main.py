@@ -18,6 +18,8 @@ def execute_command(command):
     match command[0]:
         case "exit":
             exit(int(command[1]))
+        case "echo":
+            res = " ".join(command[1:])
         case _:
             res = f"{command[0]}: command not found"
 
