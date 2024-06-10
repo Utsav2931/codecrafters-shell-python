@@ -1,4 +1,8 @@
+from os.path import isfile
 import sys
+import os
+
+PATH = os.environ.get("PATH")
 
 def main():
     # You can use print statements as follows for debugging, they'll be visible when running tests.
@@ -27,10 +31,14 @@ def execute_command(user_command):
     return res
 
 def type (command):
-    commands = {"echo", "type", "exit"}
-    if command in commands:
+    shell_builtins = {"echo", "type", "exit"}
+    if command in shell_builtins:
         return f"{command} is a shell builtin"
     else:
+        paths = PATH.split(":")
+        for path in paths:
+            if os.path.isfile(f"{path}/{command}"):
+                return f"{command} is {path}/{command}"
         return f"{command} not found"
 
 if __name__ == "__main__":
