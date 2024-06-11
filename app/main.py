@@ -4,6 +4,7 @@ import sys
 import os
 
 PATH = os.environ.get("PATH")
+HOME_PATH = os.environ.get("HOME")
 
 def main():
     # You can use print statements as follows for debugging, they'll be visible when running tests.
@@ -31,7 +32,10 @@ def execute_command(user_command):
         case "pwd":
             res = os.getcwd()
         case "cd":
-            if os.path.isdir(user_command[1]):
+            if user_command[1] == "~":
+                os.chdir(HOME_PATH)
+                res = ""
+            elif os.path.isdir(user_command[1]):
                 os.chdir(user_command[1]);
                 res = "";
             else: 
