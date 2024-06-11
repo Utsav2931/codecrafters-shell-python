@@ -1,3 +1,4 @@
+from os.path import isfile
 import subprocess
 import sys
 import os
@@ -13,7 +14,9 @@ def main():
         sys.stdout.flush()
         # Wait for user input
         user_command = input().split(" ")
-        print(execute_command(user_command))
+        res = execute_command(user_command) 
+        if res != "":
+            print(res)
 
 
 def execute_command(user_command):
@@ -27,6 +30,12 @@ def execute_command(user_command):
             res = type(user_command[1])
         case "pwd":
             res = os.getcwd()
+        case "cd":
+            if os.path.isdir(user_command[1]):
+                os.chdir(user_command[1]);
+                res = "";
+            else: 
+                res = f"cd: {user_command[1]}: No such file or directory"
         case _:
             file_path = get_file_path(user_command[0])
             if file_path != "":
