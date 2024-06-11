@@ -25,6 +25,8 @@ def execute_command(user_command):
             res = " ".join(user_command[1:])
         case "type":
             res = type(user_command[1])
+        case "pwd":
+            res = os.getcwd()
         case _:
             file_path = get_file_path(user_command[0])
             if file_path != "":
